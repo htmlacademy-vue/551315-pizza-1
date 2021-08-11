@@ -16,6 +16,7 @@
             name="diameter"
             class="visually-hidden"
             :value="item.size"
+            :checked="index === 0"
           />
           <span>{{ item.name }}</span>
         </label>
@@ -45,6 +46,9 @@ export default {
         normalizeDataItem(size, PIZZA_SIZES, "id")
       ),
     };
+  },
+  mounted() {
+    this.$emit("selectSize", this.sizes[0]);
   },
 };
 </script>

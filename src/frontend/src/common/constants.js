@@ -3,11 +3,13 @@ export const PIZZA_DOUGH_TYPE = [
     id: 1,
     name: "Тонкое",
     type: "light",
+    pizzaViewType: "small",
   },
   {
     id: 2,
     name: "Толстое",
     type: "large",
+    pizzaViewType: "big",
   },
 ];
 

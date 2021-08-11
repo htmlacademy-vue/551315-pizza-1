@@ -34,6 +34,7 @@ export default {
   props: {
     maxCount: {
       type: Number,
+      required: true,
     },
     change: {
       type: Function,

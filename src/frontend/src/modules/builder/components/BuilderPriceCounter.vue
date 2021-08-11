@@ -10,6 +10,10 @@ export default {
       type: Object,
       required: true,
     },
+    size: {
+      type: Object,
+      required: true,
+    },
     sauce: {
       type: Object,
       required: true,
@@ -21,13 +25,14 @@ export default {
   },
   computed: {
     price() {
+      const sizeMultiplier = this.size.multiplier || 1;
       const doughPrice = this.dough.price || 0;
       const saucePrice = this.sauce.price || 0;
       let ingredientsPrice = 0;
       this.ingredients.forEach((item) => {
         ingredientsPrice = ingredientsPrice + item.price * item.quantity;
       });
-      return doughPrice + saucePrice + ingredientsPrice;
+      return (doughPrice + saucePrice + ingredientsPrice) * sizeMultiplier;
     },
   },
 };

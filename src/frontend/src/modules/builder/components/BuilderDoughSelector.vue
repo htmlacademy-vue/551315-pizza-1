@@ -16,6 +16,7 @@
             name="dough"
             class="visually-hidden"
             :value="item.type"
+            :checked="index === 0"
           />
           <b>{{ item.name }}</b>
           <span>{{ item.description }}</span>
@@ -46,6 +47,9 @@ export default {
         normalizeDataItem(item, PIZZA_DOUGH_TYPE, "id")
       ),
     };
+  },
+  mounted() {
+    this.$emit("selectDough", this.dough[0]);
   },
 };
 </script>

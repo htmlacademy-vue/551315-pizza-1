@@ -14,7 +14,7 @@
         <BuilderIngredientsSelector
           :pizza="pizza"
           @selectSauce="selectSauce = $event"
-          @selectIngredients="selectIngredients = $event"
+          @selectIngredients="setSelectIngredients($event)"
         />
 
         <div class="content__pizza">
@@ -27,11 +27,17 @@
             />
           </label>
 
-          <BuilderPizzaView @selectIngredients="selectIngredients = $event" />
+          <BuilderPizzaView
+            :dough="selectDough"
+            :sauce="selectSauce"
+            :ingredients="selectIngredients"
+            @selectIngredients="setSelectIngredients($event)"
+          />
 
           <div class="content__result">
             <BuilderPriceCounter
               :dough="selectDough"
+              :size="selectSize"
               :sauce="selectSauce"
               :ingredients="selectIngredients"
             />
@@ -75,6 +81,21 @@ export default {
     BuilderIngredientsSelector,
     BuilderPizzaView,
     BuilderPriceCounter,
+  },
+  methods: {
+    setSelectIngredients(ingredient) {
+      const ingredientIndex = this.selectIngredients.findIndex(
+        (item) => item.id === ingredient.id
+      );
+      if (ingredientIndex !== -1) {
+        this.selectIngredients[ingredientIndex].quantity = ingredient.quantity;
+        this.selectIngredients = this.selectIngredients.filter(
+          (item) => item.quantity !== 0
+        );
+      } else {
+        this.selectIngredients.push(ingredient);
+      }
+    },
   },
 };
 </script>

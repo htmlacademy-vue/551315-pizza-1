@@ -13,7 +13,12 @@
             class="radio ingridients__input"
             @change="$emit('selectSauce', item)"
           >
-            <input type="radio" name="sauce" :value="item.type" />
+            <input
+              type="radio"
+              name="sauce"
+              :value="item.type"
+              :checked="index === 0"
+            />
             <span>{{ item.name }}</span>
           </label>
         </div>
@@ -35,7 +40,7 @@
 
               <ItemCounter
                 :maxCount="3"
-                @change="setSelectedIngredients($event, item)"
+                @change="onIngredientsChange($event, item)"
               />
             </li>
           </ul>
@@ -81,21 +86,13 @@ export default {
     AppDrag,
   },
   methods: {
-    setSelectedIngredients(quantity, ingredient) {
-      const ingredientIndex = this.selectedIngredients.findIndex(
-        (item) => item.id === ingredient.id
-      );
-      if (ingredientIndex !== -1) {
-        this.selectedIngredients[ingredientIndex].quantity = quantity;
-      } else {
-        ingredient.quantity = quantity;
-        this.selectedIngredients.push(ingredient);
-      }
-      this.selectedIngredients = this.selectedIngredients.filter(
-        (item) => item.quantity !== 0
-      );
-      this.$emit("selectIngredients", this.selectedIngredients);
+    onIngredientsChange(quantity, ingredient) {
+      ingredient.quantity = quantity;
+      this.$emit("selectIngredients", ingredient);
     },
+  },
+  mounted() {
+    this.$emit("selectSauce", this.sauces[0]);
   },
 };
 </script>
